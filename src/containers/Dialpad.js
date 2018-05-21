@@ -119,8 +119,8 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      alert(window.keyboard)
-      window.keyboard.hide()
+      alert(window.Keyboard)
+      window.Keyboard.hide()
     }
   }
   handleCall = event => {
