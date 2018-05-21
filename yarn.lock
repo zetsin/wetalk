@@ -2453,6 +2453,10 @@ cordova-plugin-network-information@~1.3.3:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/cordova-plugin-network-information/-/cordova-plugin-network-information-1.3.4.tgz#28f426cc2659174dc622a07180f9ba0d855f7383"
 
+cordova-plugin-phonedialer@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-phonedialer/-/cordova-plugin-phonedialer-0.3.1.tgz#19bdea86d1b6cc6b0ad428eaf4df280e6f9aa16a"
+
 cordova-plugin-vibration@~2.1.5:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/cordova-plugin-vibration/-/cordova-plugin-vibration-2.1.6.tgz#e57295892cf15e44b0c99f8feb44774395cb4a3e"

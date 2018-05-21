@@ -110,7 +110,7 @@ class Comp extends React.Component {
   handleBlur = event => {
     const { dialpad } = this.props
     this.setCaret(dialpad.position)
-    event.target.focus()
+    // event.target.focus()
   }
   handleFocus = event => {
     const { dispatch } = this.props
