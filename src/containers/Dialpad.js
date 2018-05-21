@@ -117,11 +117,6 @@ class Comp extends React.Component {
     dispatch(Dialpad.update({
       position: this.fix(event.target.selectionStart)
     }))
-    
-    if(window.cordova) {
-      console.log(window.Keyboard)
-      window.Keyboard.hide()
-    }
   }
   handleCall = event => {
     if(window.cordova) {
@@ -185,7 +180,7 @@ class Comp extends React.Component {
   componentDidMount() {
     if(window.cordova) {
       console.log(window.SoftInputMode)
-      window.SoftInputMode.set('stateAlwaysHidden')
+      window.SoftInputMode.set('stateHidden')
     }
   }
 }
