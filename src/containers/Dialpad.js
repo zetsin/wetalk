@@ -119,7 +119,7 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      console.log(window.keyboard)
+      alert(window.keyboard)
       window.keyboard.hide()
     }
   }

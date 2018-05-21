@@ -8,7 +8,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "serve": "phonegap serve --port 1337"
+    "serve": "phonegap serve --port 1337",
+    "fast": "yarn build && git add . && git commit -am \"fast\" && git push"
   },
   "dependencies": {
     "@material-ui/core": "^1.0.0",
