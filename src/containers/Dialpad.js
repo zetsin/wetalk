@@ -119,10 +119,10 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      if (window.cordova.platformId == 'android') {
-        window.Keyboard.close();
+      if (window.cordova.platformId === 'android') {
+        window.Keyboard.close()
       } else {
-        window.Keyboard.hide();
+        window.Keyboard.hide()
       }
     }
   }
@@ -153,6 +153,8 @@ class Comp extends React.Component {
                 onFocus: this.handleFocus,
                 onClick: this.handleFocus,
               }} fullWidth autoFocus />
+              <pre>{JSON.stringify(window.cordova, null, 2)}</pre>
+              <pre>{JSON.stringify(window.Keyboard, null, 2)}</pre>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
                 <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
