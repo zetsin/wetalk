@@ -119,8 +119,11 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      console.log(window.Keyboard)
-      window.Keyboard.hide()
+      if (window.cordova.platformId == 'android') {
+        window.Keyboard.close();
+      } else {
+        window.Keyboard.hide();
+      }
     }
   }
   handleCall = event => {
@@ -180,13 +183,6 @@ class Comp extends React.Component {
         </Grid>
       </Grid>
     )
-  }
-
-  componentDidMount() {
-    if(window.cordova) {
-      console.log(window.SoftInputMode)
-      window.SoftInputMode.set('stateAlwaysHidden')
-    }
   }
 }
 
