@@ -119,7 +119,11 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      window.cordova.exec(null, null, "Keyboard", "hide", [])
+      window.cordova.exec(success => {
+        alert(success)
+      }, err => {
+        alert(err)
+      }, "Keyboard", "hide", [])
       window.Keyboard.hide()
     }
   }
