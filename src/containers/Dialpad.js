@@ -119,7 +119,7 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      console.log(window.keyboard)
+      // console.log(window.keyboard)
       // window.keyboard.hide()
     }
   }
@@ -152,7 +152,7 @@ class Comp extends React.Component {
               }} fullWidth autoFocus />
               <pre>{JSON.stringify(window.cordova, null, 2)}</pre>
               <pre>window.keyboard</pre>
-              <pre>{window.keyboard}</pre>
+              {/* <pre>{window.keyboard}</pre> */}
               <pre>window.keyboard</pre>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
