@@ -180,7 +180,7 @@ class Comp extends React.Component {
   componentDidMount() {
     if(window.cordova) {
       console.log(window.SoftInputMode)
-      window.SoftInputMode.set('stateHidden')
+      window.SoftInputMode.set('stateAlwaysHidden')
     }
   }
 }
