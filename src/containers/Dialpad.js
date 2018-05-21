@@ -123,6 +123,16 @@ class Comp extends React.Component {
       window.Keyboard.hide()
     }
   }
+  handleCall = event => {
+    if(window.cordova) {
+      console.log(window.phonedialer)
+      window.phonedialer.dial(
+        "18523400072", 
+        err => {},
+        success => {}
+      )
+    }
+  }
 
   render() {
     const { classes, dialpad } = this.props
@@ -162,7 +172,7 @@ class Comp extends React.Component {
               </Grid>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" className={classes.button} readOnly> </Button></Grid>
-                <Grid item><Button variant="fab" color="primary"><Phone /></Button></Grid>
+                <Grid item><Button variant="fab" color="primary" onClick={this.handleCall}><Phone /></Button></Grid>
                 <Grid item><Button variant="fab" className={classes.button} onClick={this.handleDel}><Backspace /></Button></Grid>
               </Grid>
             </CardContent>
