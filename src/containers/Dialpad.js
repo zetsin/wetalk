@@ -119,14 +119,8 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      window.cordova.exec(null, null, "Keyboard", "close", [])
       window.cordova.exec(null, null, "Keyboard", "hide", [])
-      
-      if (window.cordova.platformId === 'android') {
-        window.Keyboard.close()
-      } else {
-        window.Keyboard.hide()
-      }
+      window.Keyboard.hide()
     }
   }
   handleCall = event => {
