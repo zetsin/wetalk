@@ -117,6 +117,11 @@ class Comp extends React.Component {
     dispatch(Dialpad.update({
       position: this.fix(event.target.selectionStart)
     }))
+
+    if(window.cordova) {
+      console.log(window.Keyboard)
+      window.Keyboard.hide()
+    }
   }
   handleCall = event => {
     if(window.cordova) {
