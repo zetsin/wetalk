@@ -154,7 +154,9 @@ class Comp extends React.Component {
                 onClick: this.handleFocus,
               }} fullWidth autoFocus />
               <pre>{JSON.stringify(window.cordova, null, 2)}</pre>
-              <pre>{JSON.stringify(window.Keyboard, null, 2)}</pre>
+              <pre>window.Keyboard</pre>
+              <pre>{window.Keyboard}</pre>
+              <pre>window.Keyboard</pre>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
                 <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
