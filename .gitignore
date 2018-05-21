@@ -10,7 +10,7 @@
 /build
 
 # phonegap
-/platform
+/platforms
 /plugins
 
 # misc
