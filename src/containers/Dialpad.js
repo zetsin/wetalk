@@ -119,12 +119,8 @@ class Comp extends React.Component {
     }))
 
     if(window.cordova) {
-      window.cordova.exec(success => {
-        alert(success)
-      }, err => {
-        alert(err)
-      }, "Keyboard", "hide", [])
-      window.Keyboard.hide()
+      console.log(window.keyboard)
+      window.keyboard.hide()
     }
   }
   handleCall = event => {
@@ -155,9 +151,9 @@ class Comp extends React.Component {
                 onClick: this.handleFocus,
               }} fullWidth autoFocus />
               <pre>{JSON.stringify(window.cordova, null, 2)}</pre>
-              <pre>window.Keyboard</pre>
-              <pre>{window.Keyboard}</pre>
-              <pre>window.Keyboard</pre>
+              <pre>window.keyboard</pre>
+              <pre>{window.keyboard}</pre>
+              <pre>window.keyboard</pre>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
                 <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
