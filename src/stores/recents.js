@@ -8,24 +8,18 @@ export default {
     filter: function() {
       const { dispatch } = this
 
-      if(!navigator.cordova) {
+      if(!window.cordova) {
         return
       }
 
-      const filter = () => {
-        window.plugins.callLog.getCallLog([], recents => {
-          dispatch({
-            type: 'recents/save',
-            payload: {
-              list: recents
-            }
-          })
-        }, err => {})
-      }
-
-      window.plugins.callLog.hasReadPermission(filter, err => {
-        window.plugins.callLog.requestReadPermission(filter, err => {})
-      })
+      window.plugins.callLog.getCallLog([], recents => {
+        dispatch({
+          type: 'recents/save',
+          payload: {
+            list: recents
+          }
+        })
+      }, err => {})
     },
     update: function(data={}) {
       const { dispatch } = this
