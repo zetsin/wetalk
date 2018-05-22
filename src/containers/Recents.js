@@ -44,6 +44,19 @@ const styles = theme => ({
 })
 
 class Comp extends React.Component {
+  handleCall = number => event => {
+    const { dispatch } = this.props
+    if(window.cordova) {
+      window.PhoneDialer.call(
+        number, 
+        err => {},
+        () => {
+          dispatch(Recents.filter())
+        }
+      )
+    }
+  }
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(Recents.filter())
@@ -68,7 +81,7 @@ class Comp extends React.Component {
             <List subheader={<li />}>
               {recents.phonecall.map((item, index) => (
                 <React.Fragment key={index}>
-                  <ListItem button>
+                  <ListItem button onClick={this.handleCall(item.number)}>
                     <Avatar>{types[item.type] || types.default}</Avatar>
                     <ListItemText
                       primary={<Typography variant="subheading" color={item.type < 3 ? 'default' : 'error'}>{item.cachedName || item.number}</Typography>}
