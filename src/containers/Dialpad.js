@@ -1,13 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import classNames from 'classnames'
 
 import { withStyles } from '@material-ui/core/styles'
 import {
   Card,
   CardContent,
-  TextField,
   Grid,
   Button,
+  Typography,
+  Popover,
+  Divider,
 } from '@material-ui/core'
 import {
   Phone,
@@ -16,7 +19,15 @@ import {
 
 import { Dialpad } from 'stores'
 
-const styles = theme => ({
+const styles = theme => console.log(theme) || ({
+  '@keyframes caret': {
+    from: {
+      opacity: 1
+    },
+    to: {
+      opacity: 0
+    }
+  },
   container: {
     minHeight: '100vh',
     paddingBottom: 56,
@@ -25,73 +36,52 @@ const styles = theme => ({
     maxWidth: '100vw',
   },
   input: {
-    color: 'black',
-    textAlign: 'center',
-    fontSize: 'xx-large'
+    overflow: 'scroll',
+    '&::-webkit-scrollbar': {
+      display: 'none'
+    }
   },
-  button: {
+  caret: {
+    opacity: 0,
+  },
+  animation: {
+    animation: 'caret .9s infinite',
+  },
+  backnone: {
     background: 'none !important',
-    boxShadow: 'none !important'
-  }
+    boxShadow: 'none !important',
+  },
+  placeholder: {
+    flex: 1,
+    opacity: 0,
+  },
+  popover: {
+    borderRadius: 30,
+    background: theme.palette.grey[900],
+  },
+  popover_item: {
+    color: theme.palette.grey[50],
+  },
+  divider: {
+    width: 1,
+    height: '100%',
+    background: theme.palette.grey[50],
+  },
 })
 
 class Comp extends React.Component {
-  setCaret = position => {
-    position = this.fix(position)
-    this.input.setSelectionRange(position, position)
-    this.setDirection()
+  state = {
+    anchorEl: null
   }
-  setDirection() {
-    const { dispatch, dialpad } = this.props
+  timeoutCallback = null
 
-    const { font } = window.getComputedStyle(this.input)
-
-    const canvas = this.canvas || (this.canvas = document.createElement("canvas"))
-    const context = canvas.getContext("2d")
-    context.font = font
-    const width = context.measureText(dialpad.value).width
-    
-    if(width > this.input.clientWidth) {
-      if(dialpad.dir === 'ltr') {
-        dispatch(Dialpad.update({
-          dir: 'rtl',
-        }))
-        this.setCaret(dialpad.position)
-      }
-    }
-    else {
-      if(dialpad.dir === 'rtl') {
-        dispatch(Dialpad.update({
-          dir: 'ltr',
-        }))
-        this.setCaret(dialpad.position)
-      }
-    }
-  }
-  fix = position => {
-    const { dialpad } = this.props
-    if(dialpad.dir === 'rtl') {
-      if(position === 0) {
-        position = dialpad.value.length
-      }
-      else if(position === dialpad.value.length) {
-        position = 0
-      }
-    }
-    return position
-  }
-  handleDial = key => event => {
+  handleDial = value => event => {
     const { dispatch, dialpad } = this.props
 
     dispatch(Dialpad.update({
-      value: dialpad.value.slice(0, dialpad.position) + key + dialpad.value.slice(dialpad.position),
-      position: dialpad.position + 1,
+      value: dialpad.value.slice(0, dialpad.position) + value + dialpad.value.slice(dialpad.position),
+      position: dialpad.position + `${value}`.length,
     }))
-    
-    setTimeout(() => {
-      this.setCaret(dialpad.position + 1)
-    })
-    
   }
   handleDel = event => {
     const { dispatch, dialpad } = this.props
@@ -99,57 +89,150 @@ class Comp extends React.Component {
     if(dialpad.position > 0) {
       dispatch(Dialpad.update({
         value: dialpad.value.slice(0, dialpad.position - 1) + dialpad.value.slice(dialpad.position),
-        position: dialpad.position -1,
+        position: dialpad.position - 1,
       }))
-
-      setTimeout(() => {
-        this.setCaret(dialpad.position -1)
-      })
-    }
-  }
-  handleBlur = event => {
-    const { dialpad } = this.props
-    this.setCaret(dialpad.position)
-    event.target.focus()
-  }
-  handleFocus = event => {
-    const { dispatch } = this.props
-    dispatch(Dialpad.update({
-      position: this.fix(event.target.selectionStart)
-    }))
-
-    if(window.cordova) {
-      console.log(window.Keyboard)
-      window.Keyboard.hide()
     }
   }
   handleCall = event => {
-    if(window.cordova) {
-      console.log(window.phonedialer)
+    const { dialpad } = this.props
+    if(window.cordova && dialpad.value) {
       window.phonedialer.dial(
-        "18523400072", 
+        dialpad.value, 
         err => {},
         success => {}
       )
     }
   }
 
+  handleClick = event => {
+    const { dispatch, dialpad } = this.props
+
+    let { value, position } = dialpad
+    let index = event.target.getAttribute('data-index')
+    if(index !== '|') {
+      index = ~~index
+      if(index <= 0) {
+        position = 0
+      }
+      else if(index > value.length) {
+        position = value.length
+      }
+      else {
+        position = index
+      }
+    }
+    dispatch(Dialpad.update({
+      position
+    }))
+  }
+
+  handleTouchStart = event => {
+    const currentTarget = event.currentTarget
+    this.timeoutCallback = setTimeout(() => {
+      this.setState({
+        anchorEl: currentTarget
+      })
+    }, 500)
+  }
+  handleTouchMove = event => {
+    clearTimeout(this.timeoutCallback)
+  }
+  handleTouchEnd = event => {
+    clearTimeout(this.timeoutCallback)
+  }
+  handleClose = event => {
+    this.setState({
+      anchorEl: null
+    })
+  }
+  handleCopy = event => {
+    const { dialpad } = this.props
+
+    navigator.clipboard.writeText(dialpad.value)
+    .catch(console.log)
+  }
+  handlePaste = event => {
+    navigator.clipboard.readText()
+    .then(text => this.handleDial(text)(event))
+    .catch(console.log)
+    
+  }
+
   render() {
-    const { classes, dialpad } = this.props
+    const { theme, classes, dialpad } = this.props
+    const { anchorEl } = this.state
+
+    setTimeout(() => {
+      const input = document.getElementById('dialpad_input')
+      if(dialpad.value.length === dialpad.position) {
+        input.scrollTo(input.scrollWidth, 0)
+      }
+    })
 
     return (
       <Grid container justify="center" alignItems="center" className={classes.container}>
         <Grid item className={classes.item}>
           <Card elevation={0}>
             <CardContent>
-              <TextField margin="normal" label=" " helperText=" " value={dialpad.value} inputProps={{
-                className: classes.input,
-                ref: el => this.input = el,
-                dir: dialpad.dir,
-                onBlur: this.handleBlur,
-                onFocus: this.handleFocus,
-                onClick: this.handleFocus,
-              }} fullWidth autoFocus />
+              <Grid container
+                id="dialpad_input"
+                alignItems="center"
+                wrap="nowrap"
+                className={classes.input}
+                onClick={this.handleClick}
+                onTouchStart={this.handleTouchStart}
+                onTouchMove={this.handleTouchMove}
+                onTouchEnd={this.handleTouchEnd}
+              >
+                <Grid item className={classes.placeholder} data-index={-1}>
+                  <Typography variant="display2" gutterBottom data-index={-1}>_</Typography>
+                </Grid>
+                {dialpad.value.slice(0, dialpad.position).split('').map((item, index) => (
+                  <Grid item key={index} data-index={index}>
+                    <Typography variant="display2" gutterBottom data-index={index}>{item}</Typography>
+                  </Grid>
+                ))}
+                <Grid item data-index="|">
+                  <Typography variant="display3" gutterBottom data-index="|" className={classNames(classes.caret, {
+                    [classes.animation]: dialpad.value > 0
+                  })}>|</Typography>
+                </Grid>
+                {dialpad.value.slice(dialpad.position).split('').map((item, index) => (
+                  <Grid item key={index} data-index={dialpad.position + index}>
+                    <Typography variant="display2" gutterBottom data-index={dialpad.position + index}>{item}</Typography>
+                  </Grid>
+                ))}
+                <Grid item className={classes.placeholder} data-index={dialpad.value.length}>
+                  <Typography variant="display2" gutterBottom data-index={dialpad.value.length}>_</Typography>
+                </Grid>
+              </Grid>
+              <Popover
+                open={!!anchorEl}
+                anchorEl={anchorEl}
+                onClose={this.handleClose}
+                anchorOrigin={{
+                  vertical: 'center',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+                PaperProps={{
+                  elevation: 0,
+                  style: styles(theme).popover
+                }}
+              >
+                <Grid container>
+                  {dialpad.value && (
+                    <React.Fragment>
+                      <Grid item><Button size="small" className={classes.popover_item} onClick={this.handleCopy}>复制</Button></Grid>
+                      <Grid item><Divider className={classes.divider} /></Grid>
+                    </React.Fragment>
+                  )}
+                  <Grid item><Button size="small" className={classes.popover_item} onClick={this.handlePaste}>粘贴</Button></Grid>
+                </Grid>
+              </Popover>
               <Grid container justify="center" spacing={40}>
                 <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
                 <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
@@ -171,9 +254,9 @@ class Comp extends React.Component {
                 <Grid item><Button variant="fab" onClick={this.handleDial('#')}>#</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" className={classes.button} readOnly> </Button></Grid>
+                <Grid item><Button variant="fab" className={classes.backnone} disabled> </Button></Grid>
                 <Grid item><Button variant="fab" color="primary" onClick={this.handleCall}><Phone /></Button></Grid>
-                <Grid item><Button variant="fab" className={classes.button} onClick={this.handleDel}><Backspace /></Button></Grid>
+                <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDel}><Backspace /></Button></Grid>
               </Grid>
             </CardContent>
           </Card>
@@ -183,4 +266,4 @@ class Comp extends React.Component {
   }
 }
 
-export default withStyles(styles)(connect(state => state)(Comp))
+export default withStyles(styles, {withTheme: true})(connect(state => state)(Comp))
