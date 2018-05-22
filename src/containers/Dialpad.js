@@ -147,10 +147,10 @@ class Comp extends React.Component {
   }
   handleCopy = event => {
     const { dialpad } = this.props
-    console.log(event.clipboardData || event.originalEvent.clipboardData)
 
     if(window.cordova) {
-      window.cordova.plugins.clipboard.copy(dialpad.value, alert, alert)
+      alert(window.cordova.plugins.clipboard.copy)
+      window.cordova.plugins.clipboard.copy(dialpad.value, () => alert('success'), () => alert('fail'))
     }
     else {
       navigator.clipboard.writeText(dialpad.value)
@@ -206,7 +206,7 @@ class Comp extends React.Component {
                 ))}
                 <Grid item data-index="|">
                   <Typography variant="display3" gutterBottom data-index="|" className={classNames(classes.caret, {
-                    [classes.animation]: dialpad.value > 0
+                    [classes.animation]: dialpad.value.length > 0
                   })}>|</Typography>
                 </Grid>
                 {dialpad.value.slice(dialpad.position).split('').map((item, index) => (
