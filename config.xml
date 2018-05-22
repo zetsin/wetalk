@@ -109,4 +109,5 @@
     <plugin name="cordova-plugin-phonedialer" spec="^0.3.1" />
     <plugin name="cordova-universal-clipboard" spec="^0.1.0" />
     <plugin name="cordova-plugin-calllog" spec="^1.2.2" />
+    <plugin name="cordova-plugin-dialer" spec="^0.5.7" />
 </widget>
