@@ -199,18 +199,6 @@ class Comp extends React.Component {
     const { theme, classes, dialpad } = this.props
     const { anchorEl } = this.state
 
-    setTimeout(() => {
-      const input = document.getElementById('dialpad_input')
-      if(dialpad.value.length === dialpad.position) {
-        if(input.scrollTo) {
-          input.scrollTo(input.scrollWidth, 0)
-        }
-        else {
-          input.scrollLeft = input.scrollWidth
-        }
-      }
-    })
-
     return (
       <Grid container justify="center" alignItems="center" className={classes.container}>
         <Grid item className={classes.item}>
@@ -316,6 +304,19 @@ class Comp extends React.Component {
         </Grid>
       </Grid>
     )
+  }
+
+  componentDidUpdate() {
+    const { dialpad } = this.props
+    const input = document.getElementById('dialpad_input')
+    if(dialpad.value.length === dialpad.position) {
+      if(input.scrollTo) {
+        input.scrollTo(input.scrollWidth, 0)
+      }
+      else {
+        input.scrollLeft = input.scrollWidth
+      }
+    }
   }
 }
 
