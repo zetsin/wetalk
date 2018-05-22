@@ -223,7 +223,7 @@ class Comp extends React.Component {
                 onTouchEnd={this.handleInputTE}
               >
                 <Grid item className={classes.placeholder} data-index={-1}>
-                  <Typography variant="display2" gutterBottom data-index={-1}>#</Typography>
+                  <Typography variant="display3" gutterBottom data-index={-1}>|</Typography>
                 </Grid>
                 {dialpad.value.slice(0, dialpad.position).split('').map((item, index) => (
                   <Grid item key={index} data-index={index}>
@@ -241,7 +241,7 @@ class Comp extends React.Component {
                   </Grid>
                 ))}
                 <Grid item className={classes.placeholder} data-index={dialpad.value.length}>
-                  <Typography variant="display2" gutterBottom data-index={dialpad.value.length}>#</Typography>
+                  <Typography variant="display3" gutterBottom data-index={dialpad.value.length}>|</Typography>
                 </Grid>
               </Grid>
               <Popover
