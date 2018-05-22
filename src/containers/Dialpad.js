@@ -78,6 +78,7 @@ class Comp extends React.Component {
 
   handleDial = value => event => {
     const { dispatch, dialpad } = this.props
+    value = value.replace(/[^0-9*#+]/ig, '')
 
     dispatch(Dialpad.update({
       value: dialpad.value.slice(0, dialpad.position) + value + dialpad.value.slice(dialpad.position),

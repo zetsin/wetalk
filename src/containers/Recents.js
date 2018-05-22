@@ -71,7 +71,7 @@ class Comp extends React.Component {
                   <ListItem button>
                     <Avatar>{types[item.type] || types.default}</Avatar>
                     <ListItemText
-                      primary={<Typography color={item.type === 3 ? 'error' : 'default'}>{item.cachedName}</Typography>}
+                      primary={<Typography color={item.type === 3 ? 'error' : 'default'}>{item.cachedName || item.number}</Typography>}
                       secondary={item.number}
                     />
                     <ListItemSecondaryAction className={classes.secondary}>
