@@ -16,7 +16,7 @@ export default {
         dispatch({
           type: 'recents/save',
           payload: {
-            list: recents
+            phonecall: recents
           }
         })
       }, err => {})
