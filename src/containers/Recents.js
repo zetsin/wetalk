@@ -19,6 +19,8 @@ import {
   Info,
 } from '@material-ui/icons'
 
+import { Recents } from 'stores'
+
 const styles = theme => ({
   header: {
     position: 'fixed',
@@ -38,8 +40,12 @@ const styles = theme => ({
 })
 
 class Comp extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(Recents.filter())
+  }
   render() {
-    const { classes } = this.props
+    const { classes, recents } = this.props
 
     return (
       <React.Fragment>
@@ -49,15 +55,15 @@ class Comp extends React.Component {
         <Card className={classes.main} elevation={0}>
           <CardContent>
             <List subheader={<li />}>
-              {[1, 2, 3].map((item, index) => (
+              {recents.phonecall.map((item, index) => (
                 <React.Fragment key={index}>
                   <ListItem button>
                     <Avatar>
                       <CallMade />
                     </Avatar>
-                    <ListItemText primary={`Item ${item}`} secondary={`Sec ${item}`} />
+                    <ListItemText primary={`Item`} secondary={item.number} />
                     <ListItemSecondaryAction className={classes.secondary}>
-                      <ListItemText secondary={`Sec ${item}`} />
+                      <ListItemText secondary={item.date} />
                       <IconButton>
                         <Info />
                       </IconButton>

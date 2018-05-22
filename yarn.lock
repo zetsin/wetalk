@@ -2409,6 +2409,10 @@ cordova-plugin-battery-status@~1.2.4:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/cordova-plugin-battery-status/-/cordova-plugin-battery-status-1.2.5.tgz#6c648f9b3cf5ab034b95c5cffe584f5576d42ca9"
 
+cordova-plugin-calllog@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-calllog/-/cordova-plugin-calllog-1.2.2.tgz#20ceb5cd1340d491dfd331b0df7024f73f8f1c45"
+
 cordova-plugin-camera@~2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-2.4.1.tgz#195e34e12db64f1c49e764f7d4e3f261aa3d94c1"
@@ -3732,10 +3736,6 @@ fast-json-stable-stringify@^2.0.0:
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
-
-fastclick@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
 
 fastparse@^1.1.1:
   version "1.1.1"

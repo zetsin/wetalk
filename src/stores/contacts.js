@@ -9,7 +9,11 @@ export default {
     find: function() {
       const { dispatch } = this
 
-      navigator.contacts && navigator.contacts.find(['*'], contacts => {
+      if(!navigator.cordova) {
+        return
+      }
+
+      navigator.contacts.find(['*'], contacts => {
 
         contacts.forEach(contact => {
           if(contact.displayName) {

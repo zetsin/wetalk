@@ -108,4 +108,5 @@
     <plugin name="cordova-plugin-vibration" spec="~2.1.5" />
     <plugin name="cordova-plugin-phonedialer" spec="^0.3.1" />
     <plugin name="cordova-universal-clipboard" spec="^0.1.0" />
+    <plugin name="cordova-plugin-calllog" spec="^1.2.2" />
 </widget>

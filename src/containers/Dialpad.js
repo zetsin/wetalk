@@ -158,7 +158,6 @@ class Comp extends React.Component {
         anchorEl: currentTarget
       })
     }, 500)
-    event && event.preventDefault()
   }
   handleInputTM = event => {
     clearTimeout(this.inputTimeout)
@@ -177,7 +176,7 @@ class Comp extends React.Component {
     if(window.cordova) {
       window.cordova.plugins.clipboard.copy(dialpad.value, () => {}, err => {})
     }
-    else {
+    else if(navigator.clipboard) {
       navigator.clipboard.writeText(dialpad.value)
       .catch(console.log)
 
@@ -187,7 +186,7 @@ class Comp extends React.Component {
     if(window.cordova) {
       window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event), err => {})
     }
-    else {
+    else if(navigator.clipboard) {
       navigator.clipboard.readText()
       .then(text => this.handleDial(text)(event))
       .catch(console.log)
@@ -202,8 +201,12 @@ class Comp extends React.Component {
     setTimeout(() => {
       const input = document.getElementById('dialpad_input')
       if(dialpad.value.length === dialpad.position) {
-        alert('scroll: ' + input.scrollWidth)
-        input.scrollTo(input.scrollWidth, 0)
+        if(input.scrollTo) {
+          input.scrollTo(input.scrollWidth, 0)
+        }
+        else {
+          input.scrollLeft = input.scrollWidth
+        }
       }
     })
 

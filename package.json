@@ -16,6 +16,7 @@
     "@material-ui/icons": "^1.0.0",
     "cordova-android": "7.0.0",
     "cordova-plugin-battery-status": "~1.2.4",
+    "cordova-plugin-calllog": "^1.2.2",
     "cordova-plugin-camera": "~2.4.1",
     "cordova-plugin-contacts": "^3.0.1",
     "cordova-plugin-device": "~1.1.6",
@@ -29,7 +30,6 @@
     "cordova-plugin-phonedialer": "^0.3.1",
     "cordova-plugin-vibration": "~2.1.5",
     "cordova-universal-clipboard": "^0.1.0",
-    "fastclick": "^1.0.6",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
@@ -61,7 +61,8 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-vibration": {},
       "cordova-plugin-phonedialer": {},
-      "cordova-universal-clipboard": {}
+      "cordova-universal-clipboard": {},
+      "cordova-plugin-calllog": {}
     }
   }
 }
