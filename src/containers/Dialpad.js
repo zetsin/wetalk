@@ -268,28 +268,28 @@ class Comp extends React.Component {
                 </Grid>
               </Popover>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(1)}>1</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(2)}>2</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(3)}>3</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(3)}>3</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(4)}>4</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(5)}>5</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(6)}>6</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(4)}>4</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(5)}>5</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(6)}>6</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(7)}>7</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(8)}>8</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(9)}>9</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(7)}>7</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(8)}>8</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(9)}>9</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial('*')}>*</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial(0)}>0</Button></Grid>
-                <Grid item><Button variant="fab" onTouchStart={this.handleDial('#')}>#</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial('*')}>*</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial(0)}>0</Button></Grid>
+                <Grid item><Button variant="fab" onClick={this.handleDial('#')}>#</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" className={classes.backnone} onTouchStart={this.handleDial('+')}>+</Button></Grid>
-                <Grid item><Button variant="fab" color="primary" onTouchStart={this.handleCall}><Phone /></Button></Grid>
+                <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDial('+')}>+</Button></Grid>
+                <Grid item><Button variant="fab" color="primary" onClick={this.handleCall}><Phone /></Button></Grid>
                 <Grid item>
                   <Button
                     variant="fab"

@@ -2441,10 +2441,6 @@ cordova-plugin-inappbrowser@~1.7.1:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-1.7.2.tgz#64763495be87eb2e7adb1a08f0209b96ea5ceee0"
 
-cordova-plugin-kb@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-kb/-/cordova-plugin-kb-1.0.6.tgz#0a1068a634b58e589d42fda359270ba5a6997fe8"
-
 cordova-plugin-media-capture@~1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/cordova-plugin-media-capture/-/cordova-plugin-media-capture-1.4.3.tgz#20e3bbe334fbb89f624b02188eac5372743920fa"
@@ -2474,6 +2470,10 @@ cordova-serve@^2.0.0:
     express "^4.13.3"
     open "0.0.5"
     shelljs "^0.5.3"
+
+cordova-universal-clipboard@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/cordova-universal-clipboard/-/cordova-universal-clipboard-0.1.0.tgz#2167cb4693e3aea1baba844375793a2bc944a577"
 
 cordova@8.0.0:
   version "8.0.0"
@@ -3732,6 +3732,10 @@ fast-json-stable-stringify@^2.0.0:
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
+
+fastclick@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
 
 fastparse@^1.1.1:
   version "1.1.1"
