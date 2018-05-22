@@ -12,16 +12,14 @@ export default {
         return
       }
 
-      setTimeout(() => {
-        window.plugins.callLog.getCallLog([], recents => {
-          dispatch({
-            type: 'recents/save',
-            payload: {
-              phonecall: recents
-            }
-          })
-        }, err => {})
-      })
+      window.plugins.callLog.getCallLog([], recents => {
+        dispatch({
+          type: 'recents/save',
+          payload: {
+            phonecall: recents
+          }
+        })
+      }, err => {})
     },
     update: function(data={}) {
       const { dispatch } = this
