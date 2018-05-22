@@ -19,7 +19,7 @@ import {
 
 import { Dialpad } from 'stores'
 
-const styles = theme => console.log(theme) || ({
+const styles = theme => ({
   '@keyframes caret': {
     from: {
       opacity: 1
@@ -133,6 +133,7 @@ class Comp extends React.Component {
         anchorEl: currentTarget
       })
     }, 500)
+    event.preventDefault()
   }
   handleTouchMove = event => {
     clearTimeout(this.timeoutCallback)
@@ -149,8 +150,7 @@ class Comp extends React.Component {
     const { dialpad } = this.props
 
     if(window.cordova) {
-      alert(window.cordova.plugins.clipboard.copy)
-      window.cordova.plugins.clipboard.copy(dialpad.value, () => alert('success'), () => alert('fail'))
+      window.cordova.plugins.clipboard.copy(dialpad.value, () => {}, () => {})
     }
     else {
       navigator.clipboard.writeText(dialpad.value)
@@ -160,7 +160,7 @@ class Comp extends React.Component {
   }
   handlePaste = event => {
     if(window.cordova) {
-      window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event))
+      window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event), () => {})
     }
     else {
       navigator.clipboard.readText()
