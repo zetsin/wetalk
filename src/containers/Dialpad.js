@@ -147,14 +147,26 @@ class Comp extends React.Component {
   }
   handleCopy = event => {
     const { dialpad } = this.props
+    console.log(event.clipboardData || event.originalEvent.clipboardData)
 
-    navigator.clipboard.writeText(dialpad.value)
-    .catch(console.log)
+    if(window.cordova) {
+      window.cordova.plugins.clipboard.copy(dialpad.value)
+    }
+    else {
+      navigator.clipboard.writeText(dialpad.value)
+      .catch(console.log)
+
+    }
   }
   handlePaste = event => {
-    navigator.clipboard.readText()
-    .then(text => this.handleDial(text)(event))
-    .catch(console.log)
+    if(window.cordova) {
+      window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event))
+    }
+    else {
+      navigator.clipboard.readText()
+      .then(text => this.handleDial(text)(event))
+      .catch(console.log)
+    }
     
   }
 
