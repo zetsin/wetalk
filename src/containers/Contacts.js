@@ -61,7 +61,10 @@ class Comp extends React.Component {
     const { classes, contacts } = this.props
 
     function filter(target, value) {
-      if(target && typeof target === 'object') {
+      if(!value) {
+        return target
+      }
+      else if(target && typeof target === 'object') {
         if(target.constructor === Array) {
           return target.filter(item => filter(item, value).length)
         }
@@ -71,6 +74,9 @@ class Comp extends React.Component {
       }
       else if(typeof target === 'string') {
         return target.toLowerCase().includes(value) ? [target] : []
+      }
+      else if(typeof target === 'number') {
+        return `{target}`.includes(value) ? [target] : []
       }
       return []
     }
