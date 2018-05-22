@@ -2,7 +2,8 @@ import pinyin from 'utils/pinyin'
 
 export default {
   state: {
-    list: []
+    list: [],
+    filter: ''
   },
 
   actions: {

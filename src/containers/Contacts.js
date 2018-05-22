@@ -46,6 +46,13 @@ const styles = theme => ({
 })
 
 class Comp extends React.Component {
+  handleChange = event => {
+    const { dispatch } = this.props
+    dispatch(Contacts.update({
+      filter: event.target.value
+    }))
+  }
+
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(Contacts.find())
@@ -53,7 +60,22 @@ class Comp extends React.Component {
   render() {
     const { classes, contacts } = this.props
 
-    const groups = contacts.list.reduce((pre, cur) => {
+    function filter(target, value) {
+      if(typeof target === 'object') {
+        if(target.constructor === Array) {
+          return target.filter(item => filter(item, value).length)
+        }
+        else {
+          return Object.keys(target).filter(key => filter(target[key], value).length).map(key => target[key])
+        }
+      }
+      else if(typeof target === 'string') {
+        return target.toLowerCase().includes(value) ? [target] : []
+      }
+      return []
+    }
+
+    const list = filter(contacts.list, contacts.filter).reduce((pre, cur) => {
       pre[cur.first_letter] = pre[cur.first_letter] || []
       pre[cur.first_letter].push(cur)
       return pre
@@ -68,7 +90,7 @@ class Comp extends React.Component {
             </IconButton>
           } />
           <CardHeader className={classes.subheader} subheader={
-            <TextField placeholder="搜索" InputProps={{
+            <TextField placeholder="搜索" value={contacts.filter} onChange={this.handleChange} InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <Search />
@@ -80,15 +102,15 @@ class Comp extends React.Component {
         <Card className={classes.main} elevation={0}>
           <CardContent>
             <List subheader={<li />}>
-              {Object.keys(groups).sort((a, b) => a >= b).map((key, index) => (
+              {Object.keys(list).sort((a, b) => a >= b).map((key, index) => (
                 <React.Fragment key={index}>
                   <ListSubheader className={classes.listSubheader}>{key}</ListSubheader>
-                  {groups[key].map((contact, index) => (
+                  {list[key].map((contact, index) => (
                     <React.Fragment key={index}>
                       <ListItem button>
                         <ListItemText primary={contact.displayName} />
                       </ListItem>
-                      {index < groups[key].length - 1 && <Divider />}
+                      {index < list[key].length - 1 && <Divider />}
                     </React.Fragment>
                   ))}
                 </React.Fragment>
