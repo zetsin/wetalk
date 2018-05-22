@@ -150,7 +150,7 @@ class Comp extends React.Component {
     console.log(event.clipboardData || event.originalEvent.clipboardData)
 
     if(window.cordova) {
-      window.cordova.plugins.clipboard.copy(dialpad.value)
+      window.cordova.plugins.clipboard.copy(dialpad.value, alert, alert)
     }
     else {
       navigator.clipboard.writeText(dialpad.value)
