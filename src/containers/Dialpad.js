@@ -73,7 +73,8 @@ class Comp extends React.Component {
   state = {
     anchorEl: null
   }
-  timeoutCallback = null
+  inputTimeout = null
+  delInterval = null
 
   handleDial = value => event => {
     const { dispatch, dialpad } = this.props
@@ -82,6 +83,21 @@ class Comp extends React.Component {
       value: dialpad.value.slice(0, dialpad.position) + value + dialpad.value.slice(dialpad.position),
       position: dialpad.position + `${value}`.length,
     }))
+  }
+  handleCall = event => {
+    const { dispatch, dialpad } = this.props
+    if(window.cordova && dialpad.value) {
+      window.phonedialer.dial(
+        dialpad.value, 
+        err => {},
+        () => {
+          dispatch(Dialpad.update({
+            value: '',
+            position: 0,
+          }))
+        }
+      )
+    }
   }
   handleDel = event => {
     const { dispatch, dialpad } = this.props
@@ -93,15 +109,19 @@ class Comp extends React.Component {
       }))
     }
   }
-  handleCall = event => {
-    const { dialpad } = this.props
-    if(window.cordova && dialpad.value) {
-      window.phonedialer.dial(
-        dialpad.value, 
-        err => {},
-        success => {}
-      )
-    }
+  handleDelTS = event => {
+    this.delInterval = this.delInterval || setInterval(() => {
+      this.handleDel(event)
+    }, 200)
+    event.preventDefault()
+  }
+  handleDelTM = event => {
+    clearInterval(this.delInterval)
+    this.delInterval = null
+  }
+  handleDelTE = event => {
+    clearInterval(this.delInterval)
+    this.delInterval = null
   }
 
   handleClick = event => {
@@ -126,20 +146,22 @@ class Comp extends React.Component {
     }))
   }
 
-  handleTouchStart = event => {
+  handleInputTS = event => {
     const currentTarget = event.currentTarget
-    this.timeoutCallback = setTimeout(() => {
+    this.inputTimeout = this.inputTimeout || setTimeout(() => {
       this.setState({
         anchorEl: currentTarget
       })
     }, 500)
     event.preventDefault()
   }
-  handleTouchMove = event => {
-    clearTimeout(this.timeoutCallback)
+  handleInputTM = event => {
+    clearTimeout(this.inputTimeout)
+    this.inputTimeout = null
   }
-  handleTouchEnd = event => {
-    clearTimeout(this.timeoutCallback)
+  handleInputTE = event => {
+    clearTimeout(this.inputTimeout)
+    this.inputTimeout = null
   }
   handleClose = event => {
     this.setState({
@@ -150,7 +172,7 @@ class Comp extends React.Component {
     const { dialpad } = this.props
 
     if(window.cordova) {
-      window.cordova.plugins.clipboard.copy(dialpad.value, () => {}, () => {})
+      window.cordova.plugins.clipboard.copy(dialpad.value, () => {}, err => {})
     }
     else {
       navigator.clipboard.writeText(dialpad.value)
@@ -160,7 +182,7 @@ class Comp extends React.Component {
   }
   handlePaste = event => {
     if(window.cordova) {
-      window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event), () => {})
+      window.cordova.plugins.clipboard.paste(text => this.handleDial(text)(event), err => {})
     }
     else {
       navigator.clipboard.readText()
@@ -192,9 +214,9 @@ class Comp extends React.Component {
                 wrap="nowrap"
                 className={classes.input}
                 onClick={this.handleClick}
-                onTouchStart={this.handleTouchStart}
-                onTouchMove={this.handleTouchMove}
-                onTouchEnd={this.handleTouchEnd}
+                onTouchStart={this.handleInputTS}
+                onTouchMove={this.handleInputTM}
+                onTouchEnd={this.handleInputTE}
               >
                 <Grid item className={classes.placeholder} data-index={-1}>
                   <Typography variant="display2" gutterBottom data-index={-1}>_</Typography>
@@ -246,29 +268,40 @@ class Comp extends React.Component {
                 </Grid>
               </Popover>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onClick={this.handleDial(1)}>1</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(2)}>2</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(3)}>3</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(1)}>1</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(2)}>2</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(3)}>3</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onClick={this.handleDial(4)}>4</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(5)}>5</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(6)}>6</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(4)}>4</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(5)}>5</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(6)}>6</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onClick={this.handleDial(7)}>7</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(8)}>8</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(9)}>9</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(7)}>7</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(8)}>8</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(9)}>9</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" onClick={this.handleDial('*')}>*</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial(0)}>0</Button></Grid>
-                <Grid item><Button variant="fab" onClick={this.handleDial('#')}>#</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial('*')}>*</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial(0)}>0</Button></Grid>
+                <Grid item><Button variant="fab" onTouchStart={this.handleDial('#')}>#</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDial('+')}>+</Button></Grid>
-                <Grid item><Button variant="fab" color="primary" onClick={this.handleCall}><Phone /></Button></Grid>
-                <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDel}><Backspace /></Button></Grid>
+                <Grid item><Button variant="fab" className={classes.backnone} onTouchStart={this.handleDial('+')}>+</Button></Grid>
+                <Grid item><Button variant="fab" color="primary" onTouchStart={this.handleCall}><Phone /></Button></Grid>
+                <Grid item>
+                  <Button
+                    variant="fab"
+                    className={classes.backnone}
+                    onClick={this.handleDel}
+                    onTouchStart={this.handleDelTS}
+                    onTouchMove={this.handleDelTM}
+                    onTouchEnd={this.handleDelTE}
+                  >
+                    <Backspace />
+                  </Button>
+                </Grid>
               </Grid>
             </CardContent>
           </Card>
