@@ -49,10 +49,10 @@ class Comp extends React.Component {
     if(window.cordova) {
       window.PhoneDialer.call(
         number, 
-        err => {},
         () => {
           dispatch(Recents.filter())
-        }
+        },
+        err => {},
       )
     }
   }

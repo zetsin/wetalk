@@ -90,13 +90,13 @@ class Comp extends React.Component {
     if(window.cordova && dialpad.value) {
       window.PhoneDialer.call(
         dialpad.value, 
-        err => {},
         () => {
           dispatch(Dialpad.update({
             value: '',
             position: 0,
           }))
-        }
+        },
+        err => {},
       )
     }
   }
