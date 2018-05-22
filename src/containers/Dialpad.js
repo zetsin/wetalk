@@ -74,7 +74,7 @@ class Comp extends React.Component {
     anchorEl: null
   }
   inputTimeout = null
-  delInterval = null
+  delTimeout = null
 
   handleDial = value => event => {
     const { dispatch, dialpad } = this.props
@@ -99,7 +99,8 @@ class Comp extends React.Component {
       )
     }
   }
-  handleDel = event => {
+  
+  del = event => {
     const { dispatch, dialpad } = this.props
 
     if(dialpad.position > 0) {
@@ -109,19 +110,22 @@ class Comp extends React.Component {
       }))
     }
   }
+  handleDel = event => {
+    this.del(event)
+    clearTimeout(this.delTimeout)
+  }
   handleDelTS = event => {
-    this.delInterval = this.delInterval || setInterval(() => {
-      this.handleDel(event)
-    }, 200)
-    event.preventDefault()
+    clearTimeout(this.delTimeout)
+    this.delTimeout = setTimeout(() => {
+      this.del()
+      this.handleDelTS()
+    }, 100)
   }
   handleDelTM = event => {
-    clearInterval(this.delInterval)
-    this.delInterval = null
+    clearTimeout(this.delTimeout)
   }
   handleDelTE = event => {
-    clearInterval(this.delInterval)
-    this.delInterval = null
+    clearTimeout(this.delTimeout)
   }
 
   handleClick = event => {
@@ -148,20 +152,19 @@ class Comp extends React.Component {
 
   handleInputTS = event => {
     const currentTarget = event.currentTarget
+    clearTimeout(this.inputTimeout)
     this.inputTimeout = this.inputTimeout || setTimeout(() => {
       this.setState({
         anchorEl: currentTarget
       })
     }, 500)
-    event.preventDefault()
+    event && event.preventDefault()
   }
   handleInputTM = event => {
     clearTimeout(this.inputTimeout)
-    this.inputTimeout = null
   }
   handleInputTE = event => {
     clearTimeout(this.inputTimeout)
-    this.inputTimeout = null
   }
   handleClose = event => {
     this.setState({
