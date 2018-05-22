@@ -266,7 +266,7 @@ class Comp extends React.Component {
                 <Grid item><Button variant="fab" onClick={this.handleDial('#')}>#</Button></Grid>
               </Grid>
               <Grid container justify="center" spacing={40}>
-                <Grid item><Button variant="fab" className={classes.backnone} disabled> </Button></Grid>
+                <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDial('+')}>+</Button></Grid>
                 <Grid item><Button variant="fab" color="primary" onClick={this.handleCall}><Phone /></Button></Grid>
                 <Grid item><Button variant="fab" className={classes.backnone} onClick={this.handleDel}><Backspace /></Button></Grid>
               </Grid>
