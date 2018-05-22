@@ -99,7 +99,7 @@ class Comp extends React.Component {
       )
     }
   }
-  
+
   del = event => {
     const { dispatch, dialpad } = this.props
 
@@ -202,6 +202,7 @@ class Comp extends React.Component {
     setTimeout(() => {
       const input = document.getElementById('dialpad_input')
       if(dialpad.value.length === dialpad.position) {
+        alert('scroll: ' + input.scrollWidth)
         input.scrollTo(input.scrollWidth, 0)
       }
     })
@@ -222,7 +223,7 @@ class Comp extends React.Component {
                 onTouchEnd={this.handleInputTE}
               >
                 <Grid item className={classes.placeholder} data-index={-1}>
-                  <Typography variant="display2" gutterBottom data-index={-1}>_</Typography>
+                  <Typography variant="display2" gutterBottom data-index={-1}>#</Typography>
                 </Grid>
                 {dialpad.value.slice(0, dialpad.position).split('').map((item, index) => (
                   <Grid item key={index} data-index={index}>
@@ -240,7 +241,7 @@ class Comp extends React.Component {
                   </Grid>
                 ))}
                 <Grid item className={classes.placeholder} data-index={dialpad.value.length}>
-                  <Typography variant="display2" gutterBottom data-index={dialpad.value.length}>_</Typography>
+                  <Typography variant="display2" gutterBottom data-index={dialpad.value.length}>#</Typography>
                 </Grid>
               </Grid>
               <Popover
