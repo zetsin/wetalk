@@ -88,7 +88,6 @@ class Comp extends React.Component {
     const { dispatch, dialpad } = this.props
     if(window.cordova && dialpad.value) {
       window.PhoneDialer.call(
-      // window.phonedialer.dial(
         dialpad.value, 
         err => {},
         () => {

@@ -13,9 +13,13 @@ import {
   Avatar,
   IconButton,
   Divider,
+  Typography,
 } from '@material-ui/core'
 import {
+  CallReceived,
   CallMade,
+  CallMissed,
+  SwapCalls,
   Info,
 } from '@material-ui/icons'
 
@@ -47,6 +51,13 @@ class Comp extends React.Component {
   render() {
     const { classes, recents } = this.props
 
+    const types = {
+      1: <CallReceived />,
+      2: <CallMade />,
+      3: <CallMissed />,
+      default: <SwapCalls />,
+    }
+
     return (
       <React.Fragment>
         <Card className={classes.header} elevation={0}>
@@ -58,12 +69,13 @@ class Comp extends React.Component {
               {recents.phonecall.map((item, index) => (
                 <React.Fragment key={index}>
                   <ListItem button>
-                    <Avatar>
-                      <CallMade />
-                    </Avatar>
-                    <ListItemText primary={`Item`} secondary={item.number} />
+                    <Avatar>{types[item.type] || types.default}</Avatar>
+                    <ListItemText
+                      primary={<Typography color={item.type === 3 ? 'error' : 'default'}>{item.cachedName}</Typography>}
+                      secondary={item.number}
+                    />
                     <ListItemSecondaryAction className={classes.secondary}>
-                      <ListItemText secondary={item.date} />
+                      <Typography color="textSecondary">{new Date(item.date).toLocaleDateString()}</Typography>
                       <IconButton>
                         <Info />
                       </IconButton>
