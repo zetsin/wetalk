@@ -48,7 +48,7 @@ class Comp extends React.Component {
     const { dispatch } = this.props
     if(window.cordova) {
       window.PhoneDialer.call(
-        number, 
+        number,
         () => {
           dispatch(Recents.filter())
         },
