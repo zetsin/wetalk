@@ -16,7 +16,7 @@ export default {
 
       window.navigator.contacts.find(['*'], contacts => {
 
-        contacts.forEach(contact => {
+        contacts.map(contact => {
           if(contact.displayName) {
             const first_letter = contact.displayName[0]
             const code = first_letter.charCodeAt()
@@ -32,8 +32,7 @@ export default {
             }
             contact.first_letter = contact.first_letter.toUpperCase()
           }
-        })
-        contacts.sort((a, b) => a.first_letter >= b.first_letter)
+        }).sort((a, b) => a.first_letter > b.first_letter ? 1 : -1)
 
         dispatch({
           type: 'contacts/save',

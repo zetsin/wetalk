@@ -90,8 +90,6 @@ class Comp extends React.Component {
       return pre
     }, {})
 
-    alert(Object.keys(list).sort((a, b) => a >= b))
-
     return (
       <React.Fragment>
         <Card className={classes.header} elevation={0}>
@@ -113,7 +111,7 @@ class Comp extends React.Component {
         <Card className={classes.main} elevation={0}>
           <CardContent>
             <List subheader={<li />}>
-              {Object.keys(list).sort((a, b) => a >= b).map((key, index) => (
+              {Object.keys(list).sort((a, b) => a > b ? 1 : -1).map((key, index) => (
                 <React.Fragment key={index}>
                   <ListSubheader className={classes.listSubheader}>{key}</ListSubheader>
                   {list[key].map((contact, index) => (
