@@ -32,6 +32,10 @@ export default {
             }
             contact.first_letter = contact.first_letter.toUpperCase()
           }
+          else {
+            contact.first_letter = '#'
+          }
+          return contact
         }).sort((a, b) => a.first_letter > b.first_letter ? 1 : -1)
 
         dispatch({

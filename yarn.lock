@@ -2405,61 +2405,17 @@ cordova-lib@8.0.0:
     valid-identifier "0.0.1"
     xcode "^1.0.0"
 
-cordova-plugin-battery-status@~1.2.4:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-battery-status/-/cordova-plugin-battery-status-1.2.5.tgz#6c648f9b3cf5ab034b95c5cffe584f5576d42ca9"
-
 cordova-plugin-calllog@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cordova-plugin-calllog/-/cordova-plugin-calllog-1.2.2.tgz#20ceb5cd1340d491dfd331b0df7024f73f8f1c45"
-
-cordova-plugin-camera@~2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-camera/-/cordova-plugin-camera-2.4.1.tgz#195e34e12db64f1c49e764f7d4e3f261aa3d94c1"
 
 cordova-plugin-contacts@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/cordova-plugin-contacts/-/cordova-plugin-contacts-3.0.1.tgz#37aadabec93c982c04a3dcda0e4f1cfa096a84ab"
 
-cordova-plugin-device@~1.1.6:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-device/-/cordova-plugin-device-1.1.7.tgz#fc94111be6932628c66868938ddf3dc82c9fbfe6"
-
-cordova-plugin-dialogs@~1.3.3:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-dialogs/-/cordova-plugin-dialogs-1.3.4.tgz#5cc966ee7c99b2f5b5b3ddf849002628b0da7157"
-
-cordova-plugin-file@~4.3.3:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-file/-/cordova-plugin-file-4.3.3.tgz#012e97aa1afb91f84916e6341b548366d23de9b9"
-
-cordova-plugin-geolocation@~2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-geolocation/-/cordova-plugin-geolocation-2.4.3.tgz#1dd00023d1f1a2ce330f8767ed08f7b738fe7184"
-
-cordova-plugin-globalization@~1.0.7:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-globalization/-/cordova-plugin-globalization-1.0.9.tgz#465b9998feea0b888844d09cd7da02bfa26cb7a3"
-
-cordova-plugin-inappbrowser@~1.7.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-1.7.2.tgz#64763495be87eb2e7adb1a08f0209b96ea5ceee0"
-
-cordova-plugin-media-capture@~1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-media-capture/-/cordova-plugin-media-capture-1.4.3.tgz#20e3bbe334fbb89f624b02188eac5372743920fa"
-
-cordova-plugin-network-information@~1.3.3:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-network-information/-/cordova-plugin-network-information-1.3.4.tgz#28f426cc2659174dc622a07180f9ba0d855f7383"
-
-cordova-plugin-phonedialer@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-phonedialer/-/cordova-plugin-phonedialer-0.3.1.tgz#19bdea86d1b6cc6b0ad428eaf4df280e6f9aa16a"
-
-cordova-plugin-vibration@~2.1.5:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-vibration/-/cordova-plugin-vibration-2.1.6.tgz#e57295892cf15e44b0c99f8feb44774395cb4a3e"
+cordova-plugin-dialer@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-dialer/-/cordova-plugin-dialer-0.5.7.tgz#eb306cc15fd3380813452470fc404ca7e7ad000e"
 
 cordova-registry-mapper@^1.1.8:
   version "1.1.15"
@@ -7965,6 +7921,10 @@ redux-actions@^0.10.1:
   resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-0.10.1.tgz#bb442ee37dd9643a94933e4071e089f435587135"
   dependencies:
     reduce-reducers "^0.1.0"
+
+redux-persist@^5.9.1:
+  version "5.9.1"
+  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.9.1.tgz#83bd4abd526ef768f63fceee338fa9d8ed6552d6"
 
 redux-storage-merger-simple@^1.0.2:
   version "1.0.5"
