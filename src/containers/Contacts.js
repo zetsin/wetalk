@@ -55,7 +55,10 @@ class Comp extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(Contacts.find())
+
+    setTimeout(() => {
+      dispatch(Contacts.find())
+    })
   }
   render() {
     const { classes, contacts } = this.props
@@ -86,6 +89,8 @@ class Comp extends React.Component {
       pre[cur.first_letter].push(cur)
       return pre
     }, {})
+
+    alert(Object.keys(list).sort((a, b) => a >= b))
 
     return (
       <React.Fragment>

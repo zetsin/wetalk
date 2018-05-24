@@ -59,7 +59,10 @@ class Comp extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props
-    dispatch(Recents.filter())
+
+    setTimeout(() => {
+      dispatch(Recents.filter())
+    })
   }
   render() {
     const { classes, recents } = this.props
