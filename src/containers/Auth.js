@@ -59,13 +59,21 @@ class Comp extends React.Component {
   }
 
   handleSignup = event => {
-    const { dispatch } = this.props
+    const { dispatch, history } = this.props
     const { signup_username, signup_password } = this.state
     dispatch(Auth.signup(signup_username, signup_password))
+    .then(info => {
+      if(!info) {
+        return
+      }
+      dispatch(Auth.signin(info.accid, info.token, history))
+    })
   }
 
   handleSignin = event => {
-    console.log(this.state.signin_username)
+    const { dispatch, history } = this.props
+    const { signin_username, signin_password } = this.state
+    dispatch(Auth.signin(signin_username, signin_password, history))
   }
 
   handleReplace = path => event => {

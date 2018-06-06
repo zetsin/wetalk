@@ -1,12 +1,12 @@
 import crypto from 'crypto'
 
-import nim from 'configs/nim'
+import config from 'config'
 
 export default (action='', obj={}) => {
   const Nonce = Math.random()
   const CurTime = parseInt(Date.now() / 1000, 10)
   const shasum = crypto.createHash('sha1')
-  shasum.update(nim.AppSecret + Nonce + CurTime)
+  shasum.update(config.appSecret + Nonce + CurTime)
   const CheckSum = shasum.digest('hex')
 
 
@@ -14,7 +14,7 @@ export default (action='', obj={}) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      AppKey: nim.AppKey,
+      AppKey: config.appKey,
       Nonce,
       CurTime,
       CheckSum

@@ -11,14 +11,14 @@ import {
 } from '@material-ui/core'
 import blue from '@material-ui/core/colors/blue'
 
-import Auth from 'containers/Auth'
+import AuthComp from 'containers/Auth'
 import Navigation from 'containers/Navigation'
 import Contacts from 'containers/Contacts'
 import Recents from 'containers/Recents'
 import Dialpad from 'containers/Dialpad'
 import Settings from 'containers/Settings'
 
-import { App } from 'stores'
+import { App, Auth } from 'stores'
 
 const theme = createMuiTheme({
   palette: {
@@ -52,7 +52,7 @@ class Comp extends React.Component {
         <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} ContentProps={{classes}} open={!!app.message} onClose={this.handleClose} message={app.message} />
         <HashRouter>
           <Switch>
-            <Route path="/auth/*" component={Auth} exact />
+            <Route path="/auth/*" component={AuthComp} exact />
             <Route path="/navs" render={() => (
               <React.Fragment>
                 <Route path="/navs/0" component={Contacts} exact />
@@ -67,6 +67,15 @@ class Comp extends React.Component {
         </HashRouter>
       </MuiThemeProvider>
     )
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      const { dispatch, auth } = this.props
+      if(auth.accid && auth.token) {
+        dispatch(Auth.signin(auth.accid, auth.token))
+      }
+    })
   }
 }
 

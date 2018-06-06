@@ -17,7 +17,7 @@ import {
   Backspace,
 } from '@material-ui/icons'
 
-import { Dialpad } from 'stores'
+import { Dialpad, Netcall } from 'stores'
 
 const styles = theme => ({
   '@keyframes caret': {
@@ -98,6 +98,9 @@ class Comp extends React.Component {
         },
         err => {},
       )
+    }
+    else {
+      dispatch(Netcall.call(dialpad.value))
     }
   }
 
